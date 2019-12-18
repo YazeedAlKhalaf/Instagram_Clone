@@ -1,0 +1,40 @@
+name: flutter_instagram_clone
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: ^0.4.3+1
+  firebase_analytics: ^5.0.9
+  firebase_auth: ^0.15.2
+  cloud_firestore: ^0.13.0+1
+  image_picker: ^0.6.2+3
+  cached_network_image: ^2.0.0-rc
+  firebase_storage: ^3.1.0
+  flutter_image_compress: ^0.6.3
+  path_provider: ^1.5.1
+  uuid: ^2.0.4
+  provider: ^3.2.0
+  cupertino_icons: ^0.1.2
+  image_cropper: ^1.1.1
+  animator: ^1.0.0+3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+  - assets/images/user_placeholder.png
+
+  fonts:
+    - family: Billabong
+      fonts:
+        - asset: assets/fonts/Billabong.ttf

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "124218327940",
+    "firebase_url": "https://chat-app-yazeed-alkhalaf.firebaseio.com",
+    "project_id": "chat-app-yazeed-alkhalaf",
+    "storage_bucket": "chat-app-yazeed-alkhalaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124218327940:android:06e70d980b5680e55493d1",
+        "android_client_info": {
+          "package_name": "com.yazeedalkhalaf.instagram_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124218327940-0kj68p1qe85sjm6jl3juus5oda9tji8r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yazeedalkhalaf.instagram_clone",
+            "certificate_hash": "1b285779e50c0190c0fda0ff7a0a0e992203c03b"
+          }
+        },
+        {
+          "client_id": "124218327940-tg5om832pdmmrss6b8b23hlt2f65g1gq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4x8hndg4923LUQcF8nkZ1U2bmlW4jw1Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124218327940-tg5om832pdmmrss6b8b23hlt2f65g1gq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
