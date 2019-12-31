@@ -8,6 +8,17 @@ class AuthService {
   static final _auth = FirebaseAuth.instance;
   static final _firestore = Firestore.instance;
 
+  static Future<FirebaseUser> getCurrentUser() async {
+    FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+    return currentUser;
+  }
+
+  static Future<String> getCurrentUserId() async {
+    FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
+    String currentUserId = currentUser.uid;
+    return currentUserId;
+  }
+
   static void signUpUser(
       BuildContext context, String name, String email, String password) async {
     try {
