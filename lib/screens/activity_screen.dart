@@ -5,10 +5,10 @@ import 'package:flutter_instagram_clone/models/post_model.dart';
 import 'package:flutter_instagram_clone/models/user_data.dart';
 import 'package:flutter_instagram_clone/models/user_model.dart';
 import 'package:flutter_instagram_clone/screens/comments_screen.dart';
-import 'package:flutter_instagram_clone/services/auth_service.dart';
 import 'package:flutter_instagram_clone/services/database_service.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ActivityScreen extends StatefulWidget {
   final String currentUserId;
@@ -45,7 +45,30 @@ class _ActivityScreenState extends State<ActivityScreen> {
       future: DatabaseService.getUserWithId(activity.fromUserId),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (!snapshot.hasData) {
-          return SizedBox.shrink();
+          return Shimmer.fromColors(
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: 20.0,
+                backgroundColor: Colors.grey,
+              ),
+              title: Container(
+                width: 200,
+                height: 25,
+                color: Colors.grey,
+              ),
+              subtitle: Container(
+                width: 150,
+                height: 20,
+                color: Colors.grey,
+              ),
+              trailing: Container(
+                width: 40,
+                height: 40,
+              ),
+            ),
+            baseColor: Colors.grey,
+            highlightColor: Colors.grey[400],
+          );
         }
         User user = snapshot.data;
         return ListTile(
@@ -99,14 +122,10 @@ class _ActivityScreenState extends State<ActivityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        centerTitle: true,
         title: Text(
-          'Instagram',
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'Billabong',
-            fontSize: 35.0,
-          ),
+          'Activity',
+          style: Theme.of(context).textTheme.headline,
         ),
       ),
       body: RefreshIndicator(

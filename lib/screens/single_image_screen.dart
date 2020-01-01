@@ -20,13 +20,11 @@ class _SingleImageScreenState extends State<SingleImageScreen> {
     final String currentUserId = Provider.of<UserData>(context).currentUserId;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           'Post',
-          style: TextStyle(
-            color: Colors.black,
-          ),
+          style: Theme.of(context).textTheme.headline,
         ),
-        backgroundColor: Colors.white,
       ),
       body: PostView(
         currentUserId: currentUserId,

@@ -4,6 +4,8 @@ import 'package:flutter_instagram_clone/models/user_model.dart';
 import 'package:flutter_instagram_clone/services/database_service.dart';
 import 'package:flutter_instagram_clone/widgets/post_view.dart';
 
+import '../utilities/theme.dart';
+
 class FeedScreen extends StatefulWidget {
   static final String id = 'feed_screen';
   final String currentUserId;
@@ -27,7 +29,6 @@ class _FeedScreenState extends State<FeedScreen> {
 
   _setupFeed() async {
     List<Post> posts = await DatabaseService.getFeedPosts(widget.currentUserId);
-    print(posts);
     setState(() {
       _posts = posts;
     });
@@ -38,11 +39,10 @@ class _FeedScreenState extends State<FeedScreen> {
     queryData = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        centerTitle: true,
         title: Text(
-          'Instagram',
+          app_name,
           style: TextStyle(
-            color: Colors.black,
             fontFamily: 'Billabong',
             fontSize: 35.0,
           ),
@@ -59,7 +59,9 @@ class _FeedScreenState extends State<FeedScreen> {
                     future: DatabaseService.getUserWithId(post.authorId),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (!snapshot.hasData) {
-                        return SizedBox.shrink();
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
                       }
                       User author = snapshot.data;
                       return PostView(

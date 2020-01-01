@@ -6,6 +6,8 @@ import 'package:flutter_instagram_clone/utilities/constants.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/post_model.dart';
+
 class StorageService {
   static Future<String> uploadUserProfileImage(
       String url, File imageFile) async {
@@ -40,12 +42,11 @@ class StorageService {
   static Future<String> uploadPost(File imageFile) async {
     String photoId = Uuid().v4();
     File image = await compressImage(photoId, imageFile);
-    StorageUploadTask uploadTask = storageRef
-        .child('images/posts/post_$photoId.jpg')
-        .putFile(image);
+    StorageUploadTask uploadTask =
+        storageRef.child('images/posts/post_$photoId.jpg').putFile(image);
     StorageTaskSnapshot storageSnap = await uploadTask.onComplete;
     String downloadUrl = await storageSnap.ref.getDownloadURL();
+    print(downloadUrl);
     return downloadUrl;
   }
-
 }

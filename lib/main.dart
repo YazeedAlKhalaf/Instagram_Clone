@@ -7,6 +7,8 @@ import 'package:flutter_instagram_clone/screens/login_screen.dart';
 import 'package:flutter_instagram_clone/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'utilities/theme.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -30,13 +32,9 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => UserData(),
       child: MaterialApp(
-        title: 'Instagram Clone',
+        title: app_name,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
-                color: Colors.black,
-              ),
-        ),
+        theme: themeData,
         home: _getScreenId(),
         routes: {
           LoginScreen.id: (context) => LoginScreen(),
