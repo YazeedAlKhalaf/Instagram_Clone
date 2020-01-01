@@ -91,7 +91,7 @@ class _PostViewState extends State<PostView> {
   @override
   Widget build(BuildContext context) {
     queryData = MediaQuery.of(context);
-    return Column(
+    return Wrap(
       children: <Widget>[
         GestureDetector(
           onTap: () => Navigator.push(
@@ -132,7 +132,7 @@ class _PostViewState extends State<PostView> {
                 ),
                 SizedBox(width: queryData.size.width * 0.085),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () => print('more'),
                   icon: Icon(
                     Icons.more_vert,
                     size: queryData.size.width * 0.065,

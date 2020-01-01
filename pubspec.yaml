@@ -24,6 +24,8 @@ dependencies:
   image_cropper: ^1.1.1
   animator: ^1.0.0+3
   intl: ^0.16.0
+  google_fonts: ^0.2.0
+  shimmer: ^1.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/services/auth_service.dart';
+import 'package:flutter_instagram_clone/utilities/theme.dart';
+
+import 'package:flutter_instagram_clone/widgets/custom_button.dart';
 
 class SignupScreen extends StatefulWidget {
   static final String id = 'signup_screen';
@@ -9,6 +12,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  final AuthService _authService = AuthService();
+
   final _formKey = GlobalKey<FormState>();
   String _name, _email, _password;
 
@@ -16,7 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       // Logging in the user w/ Firebase
-      AuthService.signUpUser(context, _name, _email, _password);
+      _authService.signUpUser(context, _name, _email, _password);
     }
   }
 
@@ -31,7 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Instagram',
+                app_name,
                 style: TextStyle(
                   fontFamily: 'Billabong',
                   fontSize: 50.0,
@@ -83,35 +88,17 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     SizedBox(height: 20.0),
-                    Container(
-                      width: 250.0,
-                      child: FlatButton(
-                        onPressed: _submit,
-                        color: Colors.blue,
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                          ),
-                        ),
-                      ),
+                    CustomButton(
+                      text: 'Sign Up',
+                      width: 250,
+                      onPressed: _submit,
                     ),
                     SizedBox(height: 20.0),
-                    Container(
-                      width: 250.0,
-                      child: FlatButton(
-                        onPressed: () => Navigator.pop(context),
-                        color: Colors.blue,
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          'Back to Login',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                          ),
-                        ),
+                    InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Text(
+                        'Already have an account? Login',
+                        style: Theme.of(context).textTheme.subtitle,
                       ),
                     ),
                   ],

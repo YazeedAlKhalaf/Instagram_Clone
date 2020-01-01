@@ -8,92 +8,122 @@ import 'package:flutter_instagram_clone/screens/profile_screen.dart';
 import 'package:flutter_instagram_clone/screens/search_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../services/auth_service.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  AuthService _authService = AuthService();
+
   int _currentTab = 0;
-  PageController _pageController;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
   }
 
   @override
   Widget build(BuildContext context) {
     final String currentUserId = Provider.of<UserData>(context).currentUserId;
-    return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        children: <Widget>[
-          FeedScreen(
+    _chooseScreen(int index) {
+      Widget chosenScreen;
+      if (index == 0) {
+        setState(() {
+          chosenScreen = FeedScreen(
             currentUserId: currentUserId,
-          ),
-          SearchScreen(),
-          CreatePostScreen(),
-          ActivityScreen(
+          );
+        });
+      } else if (index == 1) {
+        setState(() {
+          chosenScreen = SearchScreen();
+        });
+      } else if (index == 2) {
+        setState(() {
+          chosenScreen = ActivityScreen(
             currentUserId: currentUserId,
-          ),
-          ProfileScreen(
+          );
+        });
+      } else if (index == 3) {
+        setState(() {
+          chosenScreen = ProfileScreen(
             userId: currentUserId,
             currentUserId: currentUserId,
-          ),
-        ],
-        onPageChanged: (int index) {
-          setState(() {
-            _currentTab = index;
-          });
-        },
-      ),
-      bottomNavigationBar: CupertinoTabBar(
-        currentIndex: _currentTab,
-        onTap: (int index) {
-          setState(() {
-            _currentTab = index;
-          });
-          _pageController.animateToPage(
-            index,
-            duration: Duration(milliseconds: 200),
-            curve: Curves.easeIn,
+          );
+        });
+      }
+
+      return chosenScreen;
+    }
+
+    return Scaffold(
+      body: _chooseScreen(_currentTab),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => CreatePostScreen(),
+            ),
           );
         },
-        activeColor: Colors.black,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              size: 32.0,
+        backgroundColor: Colors.white,
+        tooltip: 'Create Post',
+        child: Icon(Icons.add_a_photo),
+        elevation: 2.0,
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              iconSize: 30.0,
+              color: _currentTab == 0 ? Colors.black : Colors.grey,
+              icon: Icon(Icons.home),
+              onPressed: () {
+                setState(() {
+                  _currentTab = 0;
+                });
+              },
             ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.search,
-              size: 32.0,
+            IconButton(
+              iconSize: 30.0,
+              color: _currentTab == 1 ? Colors.black : Colors.grey,
+              icon: Icon(Icons.search),
+              onPressed: () {
+                setState(() {
+                  _currentTab = 1;
+                });
+              },
             ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.photo_camera,
-              size: 32.0,
+            IconButton(
+              iconSize: 30.0,
+              color: _currentTab == 2 ? Colors.black : Colors.grey,
+              icon: Icon(Icons.notifications),
+              onPressed: () {
+                setState(() {
+                  _currentTab = 2;
+                });
+              },
             ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.notifications,
-              size: 32.0,
+            IconButton(
+              iconSize: 30.0,
+              color: _currentTab == 3 ? Colors.black : Colors.grey,
+              icon: Icon(Icons.account_circle),
+              onPressed: () {
+                setState(() {
+                  _currentTab = 3;
+                });
+              },
             ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
-              size: 32.0,
-            ),
-          ),
-        ],
+          ],
+        ),
+        shape: CircularNotchedRectangle(),
+        color: Colors.white,
       ),
     );
   }

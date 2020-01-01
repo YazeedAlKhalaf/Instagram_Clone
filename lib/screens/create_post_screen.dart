@@ -10,6 +10,7 @@ import 'package:flutter_instagram_clone/services/storage_service.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CreatePostScreen extends StatefulWidget {
   @override
@@ -109,7 +110,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       setState(() {
         _isLoading = true;
       });
-
       // Create post
       String imageUrl = await StorageService.uploadPost(_image);
       Post post = Post(
@@ -141,12 +141,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       absorbing: _isLoading == false ? false : true,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
           title: Text(
             'Post Creation',
-            style: TextStyle(
-              color: Colors.black,
-            ),
+            style: Theme.of(context).textTheme.headline,
           ),
           actions: <Widget>[
             FlatButton(

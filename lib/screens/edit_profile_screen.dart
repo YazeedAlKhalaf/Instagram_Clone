@@ -94,10 +94,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        centerTitle: true,
         title: Text(
           'Edit Profile',
-          style: TextStyle(color: Colors.black),
+          style: Theme.of(context).textTheme.headline,
         ),
       ),
       body: GestureDetector(
@@ -125,9 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onPressed: _handleImageFromGallery,
                       child: Text(
                         'Change Profile Image',
-                        style: TextStyle(
-                            color: Theme.of(context).accentColor,
-                            fontSize: 16.0),
+                        style: Theme.of(context).accentTextTheme.subtitle,
                       ),
                     ),
                     TextFormField(

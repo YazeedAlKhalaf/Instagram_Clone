@@ -5,21 +5,21 @@ import 'package:flutter_instagram_clone/models/user_data.dart';
 import 'package:provider/provider.dart';
 
 class AuthService {
-  static final _auth = FirebaseAuth.instance;
-  static final _firestore = Firestore.instance;
+  final _auth = FirebaseAuth.instance;
+  final _firestore = Firestore.instance;
 
-  static Future<FirebaseUser> getCurrentUser() async {
-    FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
-    return currentUser;
+  Future<FirebaseUser> getCurrentUser() async {
+    final FirebaseUser user = await _auth.currentUser();
+    return user;
   }
 
-  static Future<String> getCurrentUserId() async {
+  Future<String> getCurrentUserId() async {
     FirebaseUser currentUser = await FirebaseAuth.instance.currentUser();
     String currentUserId = currentUser.uid;
     return currentUserId;
   }
 
-  static void signUpUser(
+  void signUpUser(
       BuildContext context, String name, String email, String password) async {
     try {
       AuthResult authResult = await _auth.createUserWithEmailAndPassword(
@@ -41,11 +41,11 @@ class AuthService {
     }
   }
 
-  static void logout() {
+  void logout() {
     _auth.signOut();
   }
 
-  static void login(String email, String password) async {
+  void login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {

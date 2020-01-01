@@ -10,6 +10,7 @@ import 'package:flutter_instagram_clone/services/database_service.dart';
 import 'package:flutter_instagram_clone/utilities/constants.dart';
 import 'package:flutter_instagram_clone/widgets/post_view.dart';
 import 'package:provider/provider.dart';
+import '../widgets/custom_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String currentUserId;
@@ -22,6 +23,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final AuthService _authService = AuthService();
+
   bool _isFollowing = false;
   int _followerCount = 0;
   int _followingCount = 0;
@@ -41,8 +44,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _setupIsFollowing() async {
     bool isFollowingUser = await DatabaseService.isFollowingUser(
-      currentUserId: widget.currentUserId,
-      userId: widget.userId,
+      currentUserId: _authService.getCurrentUserId().toString(),
+      userId: _authService.getCurrentUserId().toString(),
     );
     setState(() {
       _isFollowing = isFollowingUser;
@@ -109,36 +112,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   _displayButton(User user) {
     return user.id == Provider.of<UserData>(context).currentUserId
-        ? Container(
-            width: 200.0,
-            child: FlatButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => EditProfileScreen(
-                    user: user,
-                  ),
+        ? CustomButton(
+            width: 200,
+            text: 'Edit Profile',
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => EditProfileScreen(
+                  user: user,
                 ),
-              ),
-              color: Colors.blue,
-              textColor: Colors.white,
-              child: Text(
-                'Edit Profile',
-                style: TextStyle(fontSize: 18.0),
               ),
             ),
           )
-        : Container(
-            width: 200.0,
-            child: FlatButton(
-              onPressed: _followOrUnfollow,
-              color: _isFollowing ? Colors.grey[200] : Colors.blue,
-              textColor: _isFollowing ? Colors.black : Colors.white,
-              child: Text(
-                _isFollowing ? 'Unfollow' : 'Follow',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
+        : CustomButton(
+            width: 200,
+            text: _isFollowing ? 'Unfollow' : 'Follow',
+            buttonColor: _isFollowing ? Colors.grey[200] : Colors.blue,
+            textColor: _isFollowing ? Colors.black : Colors.white,
+            onPressed: _followOrUnfollow,
           );
   }
 
@@ -326,26 +317,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Instagram',
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'Billabong',
-            fontSize: 35.0,
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: AuthService.logout,
-          ),
-        ],
-      ),
-      body: FutureBuilder(
+    return FutureBuilder(
         future: usersRef.document(widget.userId).get(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
@@ -354,16 +326,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
             );
           }
           User user = User.fromDoc(snapshot.data);
-          return ListView(
-            children: <Widget>[
-              _buildProfileInfo(user),
-              _buildToggleButtons(),
-              Divider(),
-              _buildDisplayPosts(),
-            ],
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text(
+                _profileUser.name,
+              ),
+              actions: <Widget>[
+                user.id == Provider.of<UserData>(context).currentUserId
+                    ? IconButton(
+                        icon: Icon(Icons.exit_to_app),
+                        onPressed: _authService.logout,
+                      )
+                    : IconButton(
+                        icon: Icon(Icons.more_vert),
+                        onPressed: () => print('User: ${user.name}'),
+                      ),
+              ],
+            ),
+            body: ListView(
+              children: <Widget>[
+                _buildProfileInfo(user),
+                _buildToggleButtons(),
+                Divider(),
+                _buildDisplayPosts(),
+              ],
+            ),
           );
-        },
-      ),
-    );
+        });
   }
 }
