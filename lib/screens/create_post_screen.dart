@@ -12,6 +12,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
+import 'home_screen.dart';
+import 'profile_screen.dart';
+
 class CreatePostScreen extends StatefulWidget {
   @override
   _CreatePostScreenState createState() => _CreatePostScreenState();
@@ -130,6 +133,9 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         _isLoading = false;
       });
     }
+
+    // Get Out
+    Navigator.pop(context);
   }
 
   @override
