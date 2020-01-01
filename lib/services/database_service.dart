@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_instagram_clone/models/activity_model.dart';
 import 'package:flutter_instagram_clone/models/post_model.dart';
 import 'package:flutter_instagram_clone/models/user_model.dart';
 import 'package:flutter_instagram_clone/utilities/constants.dart';
-
-import '../models/post_model.dart';
-import '../utilities/constants.dart';
 
 class DatabaseService {
   static void updateUser(User user) {

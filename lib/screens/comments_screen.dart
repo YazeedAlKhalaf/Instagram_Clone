@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_instagram_clone/models/comment_model.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import '../models/post_model.dart';
-import '../models/user_data.dart';
-import '../models/user_model.dart';
-import '../services/database_service.dart';
-import '../utilities/constants.dart';
+import 'package:flutter_instagram_clone/models/post_model.dart';
+import 'package:flutter_instagram_clone/services/database_service.dart';
+import 'package:flutter_instagram_clone/models/user_model.dart';
+import 'package:flutter_instagram_clone/models/user_data.dart';
+import 'package:flutter_instagram_clone/utilities/constants.dart';
 
 class CommentsScreen extends StatefulWidget {
   final Post post;
