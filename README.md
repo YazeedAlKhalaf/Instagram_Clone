@@ -1,16 +1,13 @@
-# instagram_clone
+# Instagram Clone
 
-A new Flutter project.
+This app is a clone of the real instgram app. It is made using Flutter. Some features are not included, so if you would like to contribute to this project then it is open-sourced and you could use any of the code below.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## How To Get Started
 
-A few resources to get you started if this is your first Flutter project:
+Visit the [Wiki](https://github.com/YazeedAlKhalaf/Instagram_Clone/wiki) for the full setup guide!
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## License
+
+This project is licensed under MIT License.
