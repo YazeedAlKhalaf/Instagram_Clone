@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_clone/src/ui/theme/theme.dart';
 import 'package:instagram_clone/src/ui/widgets/dumb_widgets/busy_overlay.dart';
 import 'package:instagram_clone/src/ui/widgets/dumb_widgets/custom_button.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:stacked/stacked.dart';
 
 import './signup_view_model.dart';
@@ -27,6 +28,14 @@ class _SignupViewState extends State<SignupView> {
             body: Center(
               child: SingleChildScrollView(
                 child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: getValueForScreenType<double>(
+                      context: context,
+                      mobile: 350,
+                      tablet: 650,
+                      desktop: 750,
+                    ),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
