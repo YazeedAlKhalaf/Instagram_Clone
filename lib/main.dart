@@ -1,47 +1,37 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_instagram_clone/models/user_data.dart';
-import 'package:flutter_instagram_clone/screens/feed_screen.dart';
-import 'package:flutter_instagram_clone/screens/home_screen.dart';
-import 'package:flutter_instagram_clone/screens/login_screen.dart';
-import 'package:flutter_instagram_clone/screens/signup_screen.dart';
-import 'package:provider/provider.dart';
+import 'package:instagram_clone/src/ui/theme/theme.dart';
+import 'package:logger/logger.dart';
+import 'package:instagram_clone/src/app/generated/locator/locator.dart';
+import 'package:instagram_clone/src/app/generated/router/router.gr.dart';
+import 'package:stacked_services/stacked_services.dart';
 
-import 'utilities/theme.dart';
+main() {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() => runApp(MyApp());
+  // Sets logging level
+  Logger.level = Level.debug;
+
+  // Register all the models and services before the app starts
+  setupLocator();
+
+  // Runs the app :)
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  Widget _getScreenId() {
-    return StreamBuilder<FirebaseUser>(
-      stream: FirebaseAuth.instance.onAuthStateChanged,
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData) {
-          Provider.of<UserData>(context).currentUserId = snapshot.data.uid;
-          return HomeScreen();
-        } else {
-          return LoginScreen();
-        }
-      },
-    );
-  }
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => UserData(),
-      child: MaterialApp(
-        title: app_name,
-        debugShowCheckedModeBanner: false,
-        theme: themeData,
-        home: _getScreenId(),
-        routes: {
-          LoginScreen.id: (context) => LoginScreen(),
-          SignupScreen.id: (context) => SignupScreen(),
-          FeedScreen.id: (context) => FeedScreen(),
-        },
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: appName,
+      initialRoute: Routes.startupViewRoute,
+      onGenerateRoute: Router().onGenerateRoute,
+      navigatorKey: locator<NavigationService>().navigatorKey,
+      // theme: ThemeData(
+      //   primaryColor: primaryColor,
+      //   accentColor: accentColor,
+      // ),
+      theme: themeData,
     );
   }
 }
