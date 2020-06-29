@@ -9,7 +9,7 @@ Visit the [Wiki](https://github.com/YazeedAlKhalaf/Instagram_Clone/wiki) for the
 # Features
 
 - [x] Authentication
-  - [x] Sign iu /Login (Email And Password)
+  - [x] Sign ui /Login (Email And Password)
   - [ ] Sign up/Login (Google Sign in)
 - [ ] Editing Account Settings
   - [x] Change account picture
@@ -31,8 +31,8 @@ Visit the [Wiki](https://github.com/YazeedAlKhalaf/Instagram_Clone/wiki) for the
   - [x] Recieve activity about likes and comments on your posts
   - [ ] Recieve activity about follows
   - [ ] Recive Notifications
-- [ ] Search
-  - [ ] search for users
+- [x] Search
+  - [x] search for users
 - [ ] Feed
   - [x] Feed of posts from followed users
   - [ ] Stories
